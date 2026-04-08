@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <span class="hero-chip">{{ hero.chip }}</span>
+        <h1 class="hero-title">{{ hero.title }}</h1>
+        <p class="hero-subtitle">{{ hero.subtitle }}</p>
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          <a class="btn btn-primary btn-lg tf-btn-primary" href="{{ url_for('projects.list_projects', lang=current_lang) }}">{{ hero.primary }}</a>
+          <a class="btn btn-light btn-lg tf-btn-secondary" href="{{ url_for('main.resume', lang=current_lang) }}">{{ hero.secondary }}</a>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="hero-card">
+          <div class="hero-card-grid metrics-2">
+            {% for metric in metrics %}
+            <div class="metric-box">
+              <div class="metric-value">{{ metric.value }}</div>
+              <div class="metric-label">{{ metric.label }}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-block pt-2">
+  <div class="container">
+    <div class="section-heading">
+      <h2>{{ sections.areas_title }}</h2>
+      <p>{{ sections.areas_subtitle }}</p>
+    </div>
+    <div class="row g-4">
+      {% for item in highlights %}
+      <div class="col-md-6 col-xl-4">
+        <div class="tf-card h-100">
+          <span class="material-symbols-outlined tf-icon">{{ item.icon }}</span>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section-block pt-0">
+  <div class="container">
+    <div class="section-heading">
+      <h2>{{ sections.about_title }}</h2>
+      <p>{{ sections.about_subtitle }}</p>
+    </div>
+    <div class="row g-4">
+      {% for item in quick_access %}
+      <div class="col-md-6 col-xl-3">
+        <a class="text-decoration-none" href="{{ url_for(item.url, lang=current_lang) }}">
+          <div class="tf-card action-card h-100">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+            <span class="repo-action mt-3">{{ item.cta }}</span>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section-block pt-0">
+  <div class="container">
+    <div class="section-heading">
+      <h2>{{ sections.classroom_title }}</h2>
+      <p>{{ sections.classroom_subtitle }}</p>
+    </div>
+    <div class="row g-4">
+      {% for item in classroom_cards %}
+      <div class="col-md-6 col-xl-4">
+        <a class="text-decoration-none" href="{{ url_for('teaching.discipline_page', slug=item.slug, lang=current_lang) }}">
+          <div class="tf-card discipline-card h-100">
+            <span class="discipline-kicker">{{ item.title }}</span>
+            <h3>{{ item.subtitle }}</h3>
+            <p>{{ item.description }}</p>
+            <div class="d-flex flex-wrap gap-2 mt-3">
+              {% for tag in item.meta %}<span class="chip">{{ tag }}</span>{% endfor %}
+            </div>
+            <div class="repo-action mt-3">{{ 'Abrir disciplina' if current_lang == 'pt' else 'Open course' }}</div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section-block pt-0">
+  <div class="container">
+    <div class="section-heading">
+      <h2>{{ sections.pillars_title }}</h2>
+      <p>{{ sections.pillars_subtitle }}</p>
+    </div>
+    <div class="tf-card intro-panel">
+      <div class="resume-list mt-1">
+        {% for line in about_lines %}
+        <div class="resume-list-item"><span class="material-symbols-outlined">check_circle</span><span>{{ line }}</span></div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="row g-4 mt-1">
+      {% for item in pillars %}
+      <div class="col-lg-4"><div class="tf-card h-100"><span class="material-symbols-outlined tf-icon">verified</span><p class="mb-0">{{ item }}</p></div></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section-block pt-0">
+  <div class="container">
+    <div class="section-heading">
+      <h2>{{ sections.tracks_title }}</h2>
+      <p>{{ sections.tracks_subtitle }}</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="tf-card h-100">
+          <h3>{{ 'Áreas de atuação' if current_lang == 'pt' else 'Scope of work' }}</h3>
+          <div class="resume-list mt-3">
+            {% for item in spotlight %}
+            <div class="resume-list-item"><span class="material-symbols-outlined">arrow_forward</span><span>{{ item }}</span></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="tf-card h-100">
+          <h3>{{ 'Leitura do perfil' if current_lang == 'pt' else 'Profile reading' }}</h3>
+          <div class="resume-list mt-3">
+            {% for item in leadership_tracks %}
+            <div class="resume-list-item"><span class="material-symbols-outlined">arrow_forward</span><span>{{ item }}</span></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

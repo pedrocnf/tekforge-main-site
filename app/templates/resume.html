@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero compact">
+  <div class="container">
+    <h1>{{ ui.title }}</h1>
+    <p>{{ ui.subtitle }}</p>
+  </div>
+</section>
+<section class="section-block pt-4">
+  <div class="container">
+    <div class="tf-card resume-intro mb-4">
+      <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 align-items-start">
+        <div>
+          <span class="hero-chip mb-3">{{ ui.profile_chip }}</span>
+          <h2 class="mb-3">{{ ui.profile_title }}</h2>
+          <p>{{ professional_summary }}</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <a class="btn btn-outline-light tf-btn-outline" href="{{ url_for('main.download_resume', lang=current_lang) }}">{{ ui.download_label }}</a>
+          <a class="btn btn-light tf-btn-secondary" href="{{ url_for('main.contact', lang=current_lang) }}">{{ ui.contact_label }}</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      {% for stat in resume_stats %}
+      <div class="col-sm-6 col-xl-3">
+        <div class="tf-card stat-card h-100">
+          <div class="metric-value small-metric">{{ stat.value }}</div>
+          <div class="metric-label">{{ stat.label }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% for group in experience_groups %}
+    <div class="section-heading mt-2"><h2>{{ group.title }}</h2><p>{{ ui.experience_sub }}</p></div>
+    <div class="row g-4 mb-4">
+      {% for exp in group.entries %}
+      <div class="col-12">
+        <div class="tf-card timeline-card">
+          <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <span class="badge text-bg-primary mb-3">{{ 'Experiência' if current_lang=='pt' else 'Experience' }}</span>
+            <span class="timeline-period">{{ exp.period }}</span>
+          </div>
+          <h3>{{ exp.role }}</h3>
+          <h4>{{ exp.org }}</h4>
+          <p>{{ exp.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div class="row g-4 mb-4">
+      <div class="col-xl-6">
+        <div class="tf-card h-100">
+          <div class="section-heading mb-3"><h2>{{ ui.education_title }}</h2><p>{{ ui.education_sub }}</p></div>
+          <div class="resume-list">
+            {% for item in education %}
+            <div class="resume-list-item align-items-start"><span class="material-symbols-outlined">school</span><span><strong>{{ item.title }}</strong><br><span class="muted-inline">{{ item.description }}</span></span></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="tf-card h-100">
+          <div class="section-heading mb-3"><h2>{{ ui.subjects_title }}</h2><p>{{ ui.subjects_sub }}</p></div>
+          <div class="d-flex flex-wrap gap-2">{% for item in teaching_disciplines %}<span class="chip">{{ item }}</span>{% endfor %}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-heading"><h2>{{ ui.focus_title }}</h2><p>{{ ui.focus_sub }}</p></div>
+    <div class="row g-4 mb-4">
+      {% for area in focus_areas %}
+      <div class="col-md-6 col-xl-3"><div class="tf-card h-100"><h3>{{ area.title }}</h3><p>{{ area.description }}</p></div></div>
+      {% endfor %}
+    </div>
+
+    <div class="section-heading"><h2>{{ ui.stack_title }}</h2><p>{{ ui.stack_sub }}</p></div>
+    <div class="row g-4 mb-4">
+      {% for group in stack_groups %}
+      <div class="col-xl-6"><div class="tf-card h-100"><h3>{{ group.title }}</h3><div class="d-flex flex-wrap gap-2 mt-3">{% for item in group['items'] %}<span class="chip">{{ item }}</span>{% endfor %}</div></div></div>
+      {% endfor %}
+    </div>
+
+    <div class="tf-card">
+      <h3>{{ ui.diff_title }}</h3>
+      <div class="resume-list mt-3">
+        {% for item in achievements %}
+        <div class="resume-list-item"><span class="material-symbols-outlined">check_circle</span><span>{{ item }}</span></div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

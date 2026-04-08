@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero compact">
+  <div class="container">
+    <h1>{{ 'Página não encontrada' if current_lang == 'pt' else 'Page not found' }}</h1>
+    <p>{{ 'Use o menu para voltar às áreas principais da plataforma.' if current_lang == 'pt' else 'Use the menu to return to the main platform areas.' }}</p>
+    <div class="d-flex flex-wrap gap-3 mt-4">
+      <a class="btn btn-primary tf-btn-primary" href="{{ url_for('main.index', lang=current_lang) }}">{{ 'Voltar ao início' if current_lang == 'pt' else 'Back to home' }}</a>
+      <a class="btn btn-light tf-btn-secondary" href="{{ url_for('main.contact', lang=current_lang) }}">{{ 'Abrir contato' if current_lang == 'pt' else 'Open contact' }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

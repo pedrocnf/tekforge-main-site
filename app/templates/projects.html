@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero compact"><div class="container"><h1>{{ ui.title }}</h1><p>{{ ui.subtitle }}</p></div></section>
+<section class="section-block pt-4">
+  <div class="container">
+    <div class="section-heading"><h2>{{ ui.featured_title }}</h2><p>{{ ui.featured_subtitle }}</p></div>
+    <div class="row g-4">
+      {% for item in curated %}
+      <div class="col-md-6 col-xl-4">
+        <div class="tf-card h-100">
+          <span class="material-symbols-outlined tf-icon">rocket_launch</span>
+          <h3>{{ item.title if current_lang == 'pt' else item.title_en }}</h3>
+          <p>{{ item.summary if current_lang == 'pt' else item.summary_en }}</p>
+          <div class="d-flex flex-wrap gap-2 mt-3">{% for tag in item.tags %}<span class="chip">{{ tag }}</span>{% endfor %}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<section class="section-block pt-0">
+  <div class="container">
+    <div class="section-heading"><h2>{{ ui.live_title }}</h2><p>{{ ui.live_subtitle }}</p></div>
+    <div class="row g-4">
+      {% for repo in repos %}
+      <div class="col-md-6 col-xl-4">
+        <a class="text-decoration-none" href="{{ repo.url }}" target="_blank" rel="noopener noreferrer">
+          <div class="tf-card repo-card h-100">
+            <div class="d-flex justify-content-between align-items-start gap-3">
+              <h3>{{ repo.name }}</h3>
+              <span class="repo-stars">★ {{ repo.stars }}</span>
+            </div>
+            <p>{{ repo.description }}</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="chip">{{ repo.language }}</span>
+              <span class="repo-action">{{ ui.cta }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% else %}
+      <div class="col-12"><div class="tf-card"><h3>{{ ui.empty_title }}</h3><p>{{ ui.empty_text }}</p></div></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,44 @@
+name: deploy-cloud-run
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    env:
+      GCP_REGION: ${{ vars.GCP_REGION || 'us-central1' }}
+      CLOUD_RUN_SERVICE: ${{ vars.CLOUD_RUN_SERVICE || 'tekforge' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: Deploy to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v3
+        with:
+          service: ${{ env.CLOUD_RUN_SERVICE }}
+          region: ${{ env.GCP_REGION }}
+          source: .
+          flags: >-
+            --allow-unauthenticated
+            --set-env-vars=ENVIRONMENT=production,APP_VERSION=${{ github.sha }},SITE_URL=https://tekforge.com.br,SITE_DOMAIN=tekforge.com.br,GITHUB_USERNAME=pedrocnf
+
+      - name: Show service URL
+        run: |
+          gcloud run services describe "$CLOUD_RUN_SERVICE"             --region "$GCP_REGION"             --format='value(status.url)'

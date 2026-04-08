@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg navbar-dark tf-navbar sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ url_for('main.index', lang=current_lang) }}">
+      <span class="brand-mark">TF</span>
+      <span class="brand-name-wrap">
+        <span class="brand-name">TekForge</span>
+        <span class="brand-domain">{{ site_domain }}</span>
+      </span>
+    </a>
+    <div class="d-flex align-items-center gap-3 ms-auto order-lg-2">
+      <div class="lang-toggle" role="group" aria-label="language selector">
+        <a class="lang-option {% if current_lang == 'pt' %}active{% endif %}" href="{{ request.path }}?lang=pt" title="Português">
+          <span class="flag">🇧🇷</span><span>PT</span>
+        </a>
+        <a class="lang-option {% if current_lang == 'en' %}active{% endif %}" href="{{ request.path }}?lang=en" title="English">
+          <span class="flag">🇺🇸</span><span>EN</span>
+        </a>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index', lang=current_lang) }}">{{ nav_labels.home }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.resume', lang=current_lang) }}">{{ nav_labels.resume }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('projects.list_projects', lang=current_lang) }}">{{ nav_labels.projects }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('teaching.teaching_home', lang=current_lang) }}">{{ nav_labels.teaching }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.lab', lang=current_lang) }}">{{ nav_labels.lab }}</a></li>
+        <li class="nav-item"><a class="nav-link nav-cta" href="{{ url_for('main.contact', lang=current_lang) }}">{{ nav_labels.contact }}</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

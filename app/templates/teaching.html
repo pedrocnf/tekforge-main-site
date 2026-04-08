@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero compact"><div class="container"><h1>{{ ui.title }}</h1><p>{{ ui.subtitle }}</p></div></section>
+<section class="section-block">
+  <div class="container">
+    <div class="row g-4">
+      {% for discipline in disciplines %}
+      <div class="col-md-6 col-xl-4">
+        <a class="text-decoration-none" href="{{ url_for('teaching.discipline_page', slug=discipline.slug, lang=current_lang) }}">
+          <div class="tf-card h-100 discipline-card">
+            <span class="eyebrow">{{ discipline.badge }}</span>
+            <h3>{{ discipline.title }}</h3>
+            <p>{{ discipline.subtitle }}</p>
+            <div class="resume-list compact-list mt-3">
+              <div class="resume-list-item"><span class="material-symbols-outlined">schedule</span><span>{{ discipline.workload }}</span></div>
+              <div class="resume-list-item"><span class="material-symbols-outlined">folder_open</span><span>{{ discipline.materials }}</span></div>
+            </div>
+            <div class="repo-action mt-3">{{ 'Abrir disciplina' if current_lang == 'pt' else 'Open course' }}</div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

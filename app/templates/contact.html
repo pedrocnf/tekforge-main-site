@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero compact"><div class="container"><h1>{{ ui.title }}</h1><p>{{ ui.subtitle }}</p></div></section>
+<section class="section-block">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+        <div class="tf-card">
+          <h3>{{ ui.card_title }}</h3>
+          <p class="mb-4">{{ ui.card_text }}</p>
+          <div class="resume-list mb-4">
+            <div class="resume-list-item"><span class="material-symbols-outlined">mail</span><span>{{ contact_info.email }}</span></div>
+            <div class="resume-list-item"><span class="material-symbols-outlined">public</span><span>{{ contact_info.domain }}</span></div>
+            <div class="resume-list-item"><span class="material-symbols-outlined">code</span><span><a href="{{ contact_info.github }}" target="_blank" rel="noopener noreferrer">{{ contact_info.github }}</a></span></div>
+            <div class="resume-list-item"><span class="material-symbols-outlined">badge</span><span><a href="{{ contact_info.linkedin }}" target="_blank" rel="noopener noreferrer">{{ contact_info.linkedin }}</a></span></div>
+          </div>
+          <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-primary tf-btn-primary" href="{{ contact_info.github }}" target="_blank" rel="noopener noreferrer">{{ ui.github_label }}</a>
+            <a class="btn btn-light tf-btn-secondary" href="{{ contact_info.linkedin }}" target="_blank" rel="noopener noreferrer">{{ ui.linkedin_label }}</a>
+            <a class="btn btn-outline-light tf-btn-outline" href="{{ url_for('main.download_resume', lang=current_lang) }}">{{ ui.resume_label }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,15 @@
+<footer class="tf-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-title">TekForge</div>
+      <div class="footer-text">{{ 'Acesse perfil profissional, projetos, disciplinas e aplicações em uma plataforma pessoal e profissional.' if current_lang == 'pt' else 'Access professional profile, projects, courses, and applications in a personal and professional platform.' }}</div>
+    </div>
+    <div class="footer-links">
+      <a href="{{ url_for('main.resume', lang=current_lang) }}">{{ nav_labels.resume }}</a>
+      <a href="{{ url_for('projects.list_projects', lang=current_lang) }}">{{ nav_labels.projects }}</a>
+      <a href="{{ url_for('teaching.teaching_home', lang=current_lang) }}">{{ nav_labels.teaching }}</a>
+      <a href="{{ url_for('main.contact', lang=current_lang) }}">{{ nav_labels.contact }}</a>
+    </div>
+    <div class="footer-meta">© {{ current_year }} TekForge · {{ site_domain }}</div>
+  </div>
+</footer>

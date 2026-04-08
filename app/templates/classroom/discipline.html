@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero compact">
+  <div class="container">
+    <span class="hero-chip">{{ course.badge }}</span>
+    <h1>{{ course.title }}</h1>
+    <p>{{ course.subtitle }}</p>
+  </div>
+</section>
+<section class="section-block pt-4">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-xl-8">
+        <div class="tf-card h-100">
+          <h3>{{ 'Visão geral' if current_lang=='pt' else 'Overview' }}</h3>
+          <p>{{ course.description }}</p>
+          <div class="section-heading mt-4 mb-3"><h2>{{ 'Tópicos simulados' if current_lang=='pt' else 'Simulated topics' }}</h2></div>
+          <div class="resume-list">
+            {% for item in course.topics %}
+            <div class="resume-list-item"><span class="material-symbols-outlined">menu_book</span><span>{{ item }}</span></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4">
+        <div class="tf-card h-100">
+          <div class="resume-list">
+            <div class="resume-list-item"><span class="material-symbols-outlined">schedule</span><span>{{ course.workload }}</span></div>
+            <div class="resume-list-item"><span class="material-symbols-outlined">folder_open</span><span>{{ course.materials }}</span></div>
+          </div>
+          <a class="btn btn-primary tf-btn-primary mt-4" href="{{ url_for('teaching.teaching_home', lang=current_lang) }}">{{ 'Voltar para Sala de Aula' if current_lang=='pt' else 'Back to Classroom' }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
