@@ -12,4 +12,4 @@ COPY . .
 
 ENV PORT=8080
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app", "--workers", "1", "--threads", "8", "--timeout", "0"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "wsgi:app", "--workers", "1", "--threads", "8", "--timeout", "0"]
